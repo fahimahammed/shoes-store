@@ -1,0 +1,9 @@
+.banner-style{
+    background-image: url('../../images/banner.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.subscribe-style{
+    width: 40%;
+}
