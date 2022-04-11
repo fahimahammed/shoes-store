@@ -1,0 +1,9 @@
+.order-img-style{
+    width: 80px;
+    border-radius: 50%;
+    box-shadow: 5px 5px 10px gray;
+}
+
+.order-cart-style{
+    box-shadow: 5px 5px 10px rgb(231, 224, 224);
+}

@@ -1,8 +1,29 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './Header.css';
 import logo from '../../images/logo.png';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
+import { Link } from "react-router-dom";
+import useProducts from '../../Hooks/useProducts';
+import { getStoredCart } from '../../utilities/fakeDb';
 
 const Header = () => {
+    const [products, setProducts] = useProducts();
+    const [cart, setCart] = useState([]);
+
+    useEffect( () =>{
+        const storedCart = getStoredCart();
+        const savedCart = [];
+        for(const id in storedCart){
+            const addedProduct = products.find(product => product.id === id);
+            if(addedProduct){
+                const quantity = storedCart[id];
+                addedProduct.quantity = quantity;
+                savedCart.push(addedProduct);
+            }
+        }
+        setCart(savedCart);
+    },[products]);
     return (
         <div>
             <div className='header-style'>
@@ -23,15 +44,21 @@ const Header = () => {
             <div className='container'>
                 <div className='d-flex flex-wrap justify-content-between align-items-center'>
                     <div className=''>
-                        <img className='img-fluid' src={logo} alt="Logo"></img>
+                        <Link to='/'>
+                            <img className='img-fluid' src={logo} alt="Logo"></img>
+                        </Link>
                     </div>
                     <div class="input-group mb-3 w-50 mt-3">
                         <input type="text" className="form-control py-3" placeholder="Write here..." aria-label="Recipient's username" aria-describedby="button-addon2"/>
                         <button class="btn btn-success" type="button" id="button-addon2">Search</button>
                     </div>
                     <div className='d-flex flex-wrap'>
-                        <h5 className="me-3">Register</h5>
-                        <h5>Login</h5>
+                        <h5 className="me-3">Register </h5>
+                        <h5>Login </h5>
+                        <Link to='/review-order'>
+                            <FontAwesomeIcon className='text-success' icon={faShoppingCart} size="2x"/>
+                            <span> {cart.length}</span>
+                        </Link>
                     </div>
                 </div>
             </div>

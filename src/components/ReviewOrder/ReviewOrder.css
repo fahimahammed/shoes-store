@@ -1,0 +1,13 @@
+.order-checkout-button, .order-shopping-button{
+    width: 300px;
+    padding: 10px;
+    color: white;
+}
+
+.order-checkout-button{
+    background-color: rgb(17, 139, 17);
+}
+
+.order-shopping-button{
+    background-color: rgb(43, 20, 20);
+}
