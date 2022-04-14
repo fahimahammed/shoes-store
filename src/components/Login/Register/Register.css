@@ -1,0 +1,11 @@
+.form-style input{
+    height: 50px;
+}
+
+.form-style button{
+    height: 50px;
+}
+
+.login-section{
+    border: 1px solid red;
+}

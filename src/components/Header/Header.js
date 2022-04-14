@@ -54,7 +54,7 @@ const Header = () => {
                     </div>
                     <div className='d-flex flex-wrap'>
                         <h5 className="me-3">Register </h5>
-                        <h5>Login </h5>
+                        <Link to='/login' className='text-decoration-none'><h5>Login </h5></Link>
                         <Link to='/review-order'>
                             <FontAwesomeIcon className='text-success' icon={faShoppingCart} size="2x"/>
                             <span> {cart.length}</span>
