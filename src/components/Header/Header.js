@@ -6,10 +6,14 @@ import { faShoppingCart } from '@fortawesome/free-solid-svg-icons';
 import { Link } from "react-router-dom";
 import useProducts from '../../Hooks/useProducts';
 import { getStoredCart } from '../../utilities/fakeDb';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import auth from '../../firebase.init';
+import { signOut } from 'firebase/auth';
 
 const Header = () => {
     const [products, setProducts] = useProducts();
     const [cart, setCart] = useState([]);
+    const [user, loading, error] = useAuthState(auth);
 
     useEffect( () =>{
         const storedCart = getStoredCart();
@@ -24,6 +28,13 @@ const Header = () => {
         }
         setCart(savedCart);
     },[products]);
+
+    const handleLogout = () =>{
+        signOut(auth);
+    }
+    if(user) {
+        console.log(user.email);
+    }
     return (
         <div>
             <div className='header-style'>
@@ -54,7 +65,12 @@ const Header = () => {
                     </div>
                     <div className='d-flex flex-wrap'>
                         <h5 className="me-3">Register </h5>
-                        <Link to='/login' className='text-decoration-none'><h5>Login </h5></Link>
+                        {
+                            user ? <h5 onClick={handleLogout}>Logout</h5> : <Link to='/login' className='text-decoration-none'><h5>Login </h5></Link>
+                        }
+                        {
+                            user && <h5 className='text-decoration-none border mx-2 brand-color'>{user.email.slice(0, 5)}</h5>
+                        }
                         <Link to='/review-order'>
                             <FontAwesomeIcon className='text-success' icon={faShoppingCart} size="2x"/>
                             <span> {cart.length}</span>
